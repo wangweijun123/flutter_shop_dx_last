@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
             return ListView(
               children: [
                 SwiperDiy(swiperDataList),
-                Text("l2"),
+                TopNavigator(navigatorList),
                 Text("l3"),
                 Text("l4"),
                 Text("l5"),
@@ -56,6 +56,9 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+/**
+ * 轮播图
+ */
 class SwiperDiy extends StatelessWidget {
   final List<Map> swiperDataList;
   SwiperDiy(this.swiperDataList);
@@ -77,6 +80,38 @@ class SwiperDiy extends StatelessWidget {
         pagination: SwiperPagination(),
         autoplay: true,
       ),
+    );
+  }
+}
+
+class TopNavigator extends StatelessWidget {
+  final List<Map> navigatorList;
+  TopNavigator(this.navigatorList);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: ScreenUtil().setHeight(250),
+      child: GridView.count(
+        crossAxisCount: 5,
+        children: navigatorList.map((item) {
+          return _gridViewItemUI(item);
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _gridViewItemUI(Map<dynamic, dynamic> item) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.network(
+          "${item['image']}",
+          fit: BoxFit.cover,
+          width: ScreenUtil().setWidth(95),
+        ),
+        Text(item['firstCategoryName'])
+      ],
     );
   }
 }
