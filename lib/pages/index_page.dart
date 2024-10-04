@@ -32,8 +32,8 @@ class IndexPage extends StatelessWidget {
   List<Widget> tabBodies = [
     HomePage(),
     CategoryPage(),
-    HomePage(),
-    HomePage(),
+    CategoryPage(),
+    CategoryPage(),
   ];
 
   //
