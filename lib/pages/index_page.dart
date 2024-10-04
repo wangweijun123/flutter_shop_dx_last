@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop_dx_last/providers/current_index_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +41,8 @@ class IndexPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(750, 1334));
+
     CurrentIndexProvider c1 =
         Provider.of<CurrentIndexProvider>(context, listen: true);
     int currentIndex = c1.currentIndex;
