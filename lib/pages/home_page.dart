@@ -121,6 +121,20 @@ class _HomePageState extends State<HomePage> {
             Text(
               item['name'],
               maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: ScreenUtil().setSp(26)),
+            ),
+            Row(
+              children: <Widget>[
+                Text(
+                  '￥${item['presentPrice']}',
+                  style: TextStyle(color: KColor.presentPriceTextColor),
+                ),
+                Text(
+                  '￥${item['oriPrice']}',
+                  style: TextStyle(color: KColor.oriPriceColor),
+                ),
+              ],
             ),
           ],
         ),
