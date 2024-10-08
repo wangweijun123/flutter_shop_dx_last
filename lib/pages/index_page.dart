@@ -4,8 +4,10 @@ import 'package:flutter_shop_dx_last/providers/current_index_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../config/string.dart';
+import 'cart_page.dart';
 import 'category_page.dart';
 import 'home_page.dart';
+import 'member_page.dart';
 
 /**
  * 只包含四个
@@ -33,11 +35,9 @@ class IndexPage extends StatelessWidget {
   List<Widget> tabBodies = [
     HomePage(),
     CategoryPage(),
-    CategoryPage(),
-    CategoryPage(),
+    CartPage(),
+    MemberPage(),
   ];
-
-  //
 
   @override
   Widget build(BuildContext context) {
