@@ -6,6 +6,8 @@ import 'package:flutter_shop_dx_last/log/log_constanst.dart';
 import 'package:flutter_shop_dx_last/service/http_service.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
+import '../config/color.dart';
+import '../config/font.dart';
 import '../config/string.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,17 +35,24 @@ class _HomePageState extends State<HomePage> {
                 (data['data']['category'] as List).cast(); //分类
             List<Map> recommendList =
                 (data['data']['recommend'] as List).cast(); //商品推荐
-            List<Map> floor1 = (data['data']['floor1'] as List).cast(); //底部商品推荐
             Map fp1 = data['data']['floor1Pic']; //广告
+
+            List<Map> floor1 = (data['data']['floor1'] as List).cast(); //底部商品推荐
+
             myPrint(
-                "swiperDataList  = ${swiperDataList.length}, ${swiperDataList}");
+                "recommendList  = ${recommendList.length}, ${recommendList}");
 
             return ListView(
               children: [
                 SwiperDiy(swiperDataList),
                 TopNavigator(navigatorList),
-                Text("l3"),
-                Text("l4"),
+                RecommendUI(recommendList),
+                Container(
+                  height: 10,
+                  color: Colors.grey,
+                ),
+                FloorPic(fp1),
+                Floor(floor1),
                 Text("l5"),
               ],
             );
@@ -111,6 +120,138 @@ class TopNavigator extends StatelessWidget {
           width: ScreenUtil().setWidth(95),
         ),
         Text(item['firstCategoryName'])
+      ],
+    );
+  }
+}
+
+class RecommendUI extends StatelessWidget {
+  final List<Map> recommendList;
+
+  const RecommendUI(this.recommendList, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 10,
+          color: Colors.grey,
+        ),
+        Text(
+          KString.recommendText, //'商品推荐',
+          style: TextStyle(color: KColor.homeSubTitleTextColor),
+        ),
+        Container(
+          height: 1,
+          color: Colors.red,
+          margin: const EdgeInsets.only(top: 6),
+        ),
+        Container(
+          // 因为本身处于listview中(可滑动组件,所以必须指定高度)
+          height: ScreenUtil().setHeight(295),
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: recommendList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _item(recommendList[index]);
+              }),
+        ),
+      ],
+    );
+  }
+
+  Widget _item(Map<dynamic, dynamic> map) {
+    return Row(
+      children: [
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              child: Image.network(
+                map['image'],
+                width: ScreenUtil().setHeight(200),
+                height: ScreenUtil().setHeight(200),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                '￥${map['presentPrice']}',
+                style: TextStyle(color: KColor.presentPriceTextColor),
+              ),
+            ),
+            Text(
+              '￥${map['oriPrice']}',
+              style: KFont.oriPriceStyle,
+            ),
+          ],
+        ),
+        Container(
+          height: ScreenUtil().setHeight(295),
+          width: 1,
+          color: Colors.red,
+        )
+      ],
+    );
+  }
+}
+
+//商品推荐中间广告
+class FloorPic extends StatelessWidget {
+  final Map floorPic;
+
+  const FloorPic(this.floorPic, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(floorPic['PICTURE_ADDRESS']);
+  }
+}
+
+//商品推荐下层
+class Floor extends StatelessWidget {
+  final List<Map> floor;
+  const Floor(this.floor);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            children: [
+              Image.network(
+                floor[0]['image'],
+                fit: BoxFit.fitWidth,
+              ),
+              Image.network(
+                floor[1]['image'],
+                fit: BoxFit.fitWidth,
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          // 这个相当于weight
+          flex: 1,
+          child: Column(
+            children: [
+              Image.network(floor[2]['image']),
+              const SizedBox(
+                height: 5,
+              ),
+              Image.network(floor[3]['image']),
+              const SizedBox(
+                height: 5,
+              ),
+              Image.network(floor[4]['image']),
+            ],
+          ),
+        ),
       ],
     );
   }
