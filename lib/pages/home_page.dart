@@ -77,7 +77,7 @@ class SwiperDiy extends StatelessWidget {
           );
         },
         itemCount: swiperDataList.length,
-        pagination: SwiperPagination(),
+        pagination: const SwiperPagination(),
         autoplay: true,
       ),
     );
@@ -86,7 +86,7 @@ class SwiperDiy extends StatelessWidget {
 
 class TopNavigator extends StatelessWidget {
   final List<Map> navigatorList;
-  TopNavigator(this.navigatorList);
+  const TopNavigator(this.navigatorList, {super.key});
 
   @override
   Widget build(BuildContext context) {
