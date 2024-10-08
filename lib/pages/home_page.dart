@@ -18,7 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getHotGoods();
   }
@@ -76,13 +75,10 @@ class _HomePageState extends State<HomePage> {
   //火爆专区数据
   List<Map> hotGoodsList = [];
   void _getHotGoods() {
-    myPrint("_getHotGoods ...");
     var formPage = {'page': page};
     request('getHotGoods', formData: formPage).then((val) {
       var data = json.decode(val.toString());
       List<Map> newGoodsList = (data['data'] as List).cast();
-      myPrint("_getHotGoods newGoodsList.size = ${newGoodsList.length}");
-      // http://172.16.64.208:3000/getHotGoods
       //设置火爆专区数据列表
       setState(() {
         hotGoodsList.addAll(newGoodsList);

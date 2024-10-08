@@ -21,10 +21,15 @@ D:\work\node_shop_server>npm start
 
 
 接口
-获取分类:
-http://192.168.0.32:3000/getHomePageContent
+获取首页数据:
+http://172.16.64.208:3000/getHomePageContent
 
 获取分类:
-http://192.168.0.32:3000/getCategory
+http://172.16.64.208:3000/getCategory
+
+爆款
+http://172.16.64.208:3000/getHotGoods
+
+分类
 
 guide line: 布局边界
