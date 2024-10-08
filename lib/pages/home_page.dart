@@ -17,6 +17,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getHotGoods();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -39,8 +46,8 @@ class _HomePageState extends State<HomePage> {
 
             List<Map> floor1 = (data['data']['floor1'] as List).cast(); //底部商品推荐
 
-            myPrint(
-                "recommendList  = ${recommendList.length}, ${recommendList}");
+            // myPrint(
+            //     "recommendList  = ${recommendList.length}, ${recommendList}");
 
             return ListView(
               children: [
@@ -53,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 FloorPic(fp1),
                 Floor(floor1),
-                Text("l5"),
+                _wrapList(),
               ],
             );
           } else {
@@ -62,6 +69,63 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+  }
+
+//火爆专区分页
+  int page = 1;
+  //火爆专区数据
+  List<Map> hotGoodsList = [];
+  void _getHotGoods() {
+    myPrint("_getHotGoods ...");
+    var formPage = {'page': page};
+    request('getHotGoods', formData: formPage).then((val) {
+      var data = json.decode(val.toString());
+      List<Map> newGoodsList = (data['data'] as List).cast();
+      myPrint("_getHotGoods newGoodsList.size = ${newGoodsList.length}");
+      // http://172.16.64.208:3000/getHotGoods
+      //设置火爆专区数据列表
+      setState(() {
+        hotGoodsList.addAll(newGoodsList);
+        page++;
+      });
+    });
+  }
+
+  Widget _wrapList() {
+    if (hotGoodsList.isNotEmpty) {
+      // 默认横向的流式布局, spacing 横向空间的大小, runSpaciing纵向大小
+      return Wrap(
+        spacing: 2,
+        children: generateChildren(),
+        runSpacing: 10,
+      );
+    } else {
+      return Text('加载中 ...');
+    }
+  }
+
+  List<Widget> generateChildren() {
+    return hotGoodsList.map((Map item) {
+      double imageWidth = 194;
+      double imageHeight = 210;
+      return Container(
+        width: imageWidth,
+        child: Column(
+          children: [
+            Image.network(
+              item['image'],
+              width: imageWidth,
+              height: imageHeight,
+              fit: BoxFit.cover,
+            ),
+            Text(
+              item['name'],
+              maxLines: 1,
+            ),
+          ],
+        ),
+      );
+    }).toList();
   }
 }
 
