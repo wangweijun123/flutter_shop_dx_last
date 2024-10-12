@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Expanded(
           child: Text(
             // 这sb当内容超出可剩余的空间，它不会自动换行，需要加上父控件exppanded
-            "dddddddddddddddddddddddeeeeeeeeeeeeeeeeeeee = $index",
+            "index = $index, dddddddddddddddddddddddeeeeeeeeeeeeeeeeeeee",
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
