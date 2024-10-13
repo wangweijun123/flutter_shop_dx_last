@@ -164,7 +164,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
       // }
       // myPrint('request getCategoryGoods after result= $result');
       Provider.of<CategoryGoodsListProvider>(context, listen: false)
-          .getGoodsList(result);
+          .saveGoodsList(result);
     });
   }
 }
@@ -251,7 +251,7 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
       CategoryGoodsListModel goodsList = CategoryGoodsListModel.fromJson(data);
       myPrint('request getCategoryGoods result= ${goodsList.data.length}');
       Provider.of<CategoryGoodsListProvider>(context, listen: false)
-          .getGoodsList(goodsList.data);
+          .saveGoodsList(goodsList.data);
     });
   }
 }

@@ -6,7 +6,7 @@ import '../model/category_goods_list_model.dart';
 class CategoryGoodsListProvider with ChangeNotifier {
   List<CategoryListData> goodsList = [];
 
-  getGoodsList(List<CategoryListData> list) {
+  saveGoodsList(List<CategoryListData> list) {
     goodsList = list;
     notifyListeners();
   }

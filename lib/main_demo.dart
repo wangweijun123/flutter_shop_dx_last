@@ -34,15 +34,22 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
-
+  // 这个 widget (MyHomePage) 持有 这个状态对象 (_MyHomePageState),
+  // 状态变化:比如int变量,从1到2, 触发rerun state中的build 函数
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() {
+    var myHomepageState = _MyHomePageState();
+    print(
+        'createState MyHomePage = ${this.hashCode}, myHomepageState = ${myHomepageState.hashCode}');
+    return myHomepageState;
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    // 只要你setState，就会重新build 调用
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -61,6 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    print(
+        'build widget = ${widget}, ${widget.hashCode}, _MyHomePageState = ${this.hashCode}');
+
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -69,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
+        // state 对象获取到 stateful对象
         title: Text(widget.title),
       ),
       body: Center(
