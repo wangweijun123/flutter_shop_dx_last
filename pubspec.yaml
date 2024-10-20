@@ -75,6 +75,8 @@ flutter:
 
   assets:
     - assets/images/girl.jpeg
+    - assets/images/icon_menu.png
+    - assets/images/arrow_right.png
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
