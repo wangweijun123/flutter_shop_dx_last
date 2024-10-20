@@ -18,29 +18,12 @@ class _CartPageState extends State<CartPage> {
           children: [
             Expanded(
               child: ListView.builder(
-                  itemCount: 50,
+                  itemCount: 20,
                   itemBuilder: (BuildContext context, int index) {
                     return _itemCart(index);
                   }),
             ),
-            Container(
-              color: Colors.amber,
-              child: const Row(
-                children: [
-                  Text('底部'),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Text('底部'),
-                        Text('底部'),
-                        Text('底部'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            _bottomContainer(),
           ],
         ));
   }
@@ -50,6 +33,27 @@ class _CartPageState extends State<CartPage> {
       'index = $index',
       style: const TextStyle(
         fontSize: 30,
+      ),
+    );
+  }
+
+  Widget _bottomContainer() {
+    return Container(
+      color: Colors.amber,
+      child: const Row(
+        children: [
+          Text('底部'),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text('底部'),
+                Text('底部'),
+                Text('底部'),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
