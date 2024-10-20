@@ -32,18 +32,16 @@ class _MemberPageState extends State<MemberPage> {
   //头像区域
   Widget _topHeader() {
     return Container(
-      color: Colors.red,
+      color: Colors.yellow,
       // 使用 double.infinity,填充父widget
       width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
+      child: const Padding(
+        padding: EdgeInsets.only(top: 8.0, bottom: 12.0),
         child: Column(
           children: [
-            Image.asset(
-              'assets/images/girl.jpeg',
-              fit: BoxFit.cover,
-              width: 150,
-              height: 150,
+            CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage('assets/images/girl.jpeg'),
             ),
             Text('段霞')
           ],
